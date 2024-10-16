@@ -1,0 +1,88 @@
+/* General container styling for centering */
+.registration-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Center vertically */
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Styling the registration box */
+.registration-form {
+  width: 100%;
+  max-width: 400px; /* Limit width on larger screens */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between form elements */
+}
+
+/* Input fields and select boxes */
+.registration-form input,
+.registration-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Checkbox container */
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+/* Button styling */
+.register-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+/* Header styling */
+.registration-container h2 {
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Footer text and link */
+.registration-container p {
+  text-align: center;
+}
+
+.registration-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.registration-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .registration-form {
+    padding: 15px; /* Slightly reduce padding on small screens */
+  }
+
+  .registration-form input,
+  .registration-form select,
+  .register-button {
+    font-size: 14px; /* Slightly smaller font for mobile */
+    padding: 10px;
+  }
+}
