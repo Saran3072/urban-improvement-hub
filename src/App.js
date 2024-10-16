@@ -5,6 +5,7 @@ import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import ReportIssue from './pages/ReportIssue';
+import ViewIssues from './pages/ViewIssues';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/report" element={<ReportIssue />} />
         <Route path="/" element={<Home />} /> {/* Set Home as default */}
+        <Route path='/issues' element={<ViewIssues />}/>
       </Routes>
     </Router>
   );

@@ -4,6 +4,7 @@ import '../assets/ReportIssue.css';
 const ReportIssue = () => {
   const [reportType, setReportType] = useState('authority'); // Default: Report to authorities
   const [category, setCategory] = useState('');
+  const [issue, setIssue] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [customLocation, setCustomLocation] = useState('');
@@ -24,6 +25,7 @@ const ReportIssue = () => {
       type: reportType,
       category,
       description,
+      issue,
       location: location === 'Other' ? customLocation : location,
       photo,
       alertLevel: reportType === 'community' ? alertLevel : undefined, // Include alert level only if community alert
@@ -91,10 +93,18 @@ const ReportIssue = () => {
           </>
         )}
 
+        <label>Issue</label>
+        <textarea
+          placeholder="Name the issue..."
+          value={description}
+          onChange={(e) => setIssue(e.target.value)}
+          required
+        />
+
         <label>Description</label>
         <textarea
           placeholder="Describe the issue..."
-          value={description}
+          value={issue}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
