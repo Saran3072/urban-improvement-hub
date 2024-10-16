@@ -1,17 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/ViewIssues.css';
-
-const issuesData = [
-  { id: 1, title: "Pothole on Main Street", category: "Roads", location: "Downtown", seriousness: "Moderate", description: "Large pothole causing damage to vehicles.", date: "2024-10-10" },
-  { id: 2, title: "Broken Streetlight", category: "Electricity", location: "East Side", seriousness: "Low", description: "Streetlight not functioning for over a week.", date: "2024-10-11" },
-  { id: 3, title: "Water Leakage in Park", category: "Water Supply", location: "Central Park", seriousness: "High", description: "Significant water leakage causing flooding in the park.", date: "2024-10-12" },
-  { id: 4, title: "Overflowing Garbage Bin", category: "Waste Management", location: "West End", seriousness: "Moderate", description: "Garbage bin overflowing, creating an unpleasant smell.", date: "2024-10-13" },
-  { id: 5, title: "Power Outage in Neighborhood", category: "Electricity", location: "Southville", seriousness: "Critical", description: "Power outage affecting multiple blocks, needs immediate attention.", date: "2024-10-13" },
-  { id: 6, title: "Broken Traffic Signal", category: "Roads", location: "5th Avenue", seriousness: "High", description: "Traffic signal not working, causing traffic congestion.", date: "2024-10-14" },
-  { id: 7, title: "Water Contamination Alert", category: "Water Supply", location: "North District", seriousness: "Critical", description: "Reports of contaminated water, posing health risks.", date: "2024-10-14" },
-  { id: 8, title: "Unattended Construction Debris", category: "Waste Management", location: "Greenview", seriousness: "Low", description: "Construction debris left on the sidewalk, partially blocking the path.", date: "2024-10-15" },
-  { id: 9, title: "Road Erosion Near School", category: "Roads", location: "Elm Street", seriousness: "Moderate", description: "Road erosion near school posing risk for vehicles and pedestrians.", date: "2024-10-16" },
-];
 
 const seriousnessOrder = {
   "Critical": 4,
@@ -21,9 +9,29 @@ const seriousnessOrder = {
 };
 
 const ViewIssues = () => {
+  const [issuesData, setIssuesData] = useState([]); // State to store issues from backend
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCategory, setFilteredCategory] = useState("All");
   const [sortOrder, setSortOrder] = useState("desc"); // Default to Critical to Low
+
+  // Fetch issues data from the backend on component mount
+  useEffect(() => {
+    const fetchIssues = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/reports");
+        if (response.ok) {
+          const data = await response.json();
+          setIssuesData(data); // Set the fetched data to issuesData state
+        } else {
+          console.error("Failed to fetch issues");
+        }
+      } catch (error) {
+        console.error("Error fetching issues:", error);
+      }
+    };
+
+    fetchIssues();
+  }, []);
 
   // Sort and filter issues
   const sortedIssues = [...issuesData]
@@ -83,7 +91,7 @@ const ViewIssues = () => {
             <p><strong>Category:</strong> {issue.category}</p>
             <p><strong>Location:</strong> {issue.location}</p>
             <p><strong>Seriousness:</strong> {issue.seriousness}</p>
-            <p><strong>Date:</strong> {issue.date}</p>
+            <p><strong>Details:</strong> {issue.date}</p>
             <p>{issue.description}</p>
             <button className="view-details-button">View Details</button>
           </div>

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import '../assets/ReportIssue.css';
 
-const ReportIssue = () => {
+const ReportIssue = ({ userEmail }) => {
+
+  console.log(userEmail)
+
   const [reportType, setReportType] = useState('authority'); // Default: Report to authorities
   const [category, setCategory] = useState('');
   const [issue, setIssue] = useState('');
@@ -18,25 +21,40 @@ const ReportIssue = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const reportData = {
+      email: userEmail, // Include user email here
       type: reportType,
       category,
-      description,
       issue,
+      description,
       location: location === 'Other' ? customLocation : location,
       photo,
       alertLevel: reportType === 'community' ? alertLevel : undefined, // Include alert level only if community alert
     };
 
-    if (reportType === 'authority') {
-      console.log('Reported to authorities:', reportData);
-      alert("Issue reported to authorities successfully!");
-    } else {
-      console.log('Alert sent to community:', reportData);
-      alert("Community alert sent successfully!");
+    try {
+      const response = await fetch("http://localhost:8000/report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reportData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert(result.message);
+        // Clear form or provide other feedback as necessary
+      } else {
+        const errorData = await response.json();
+        alert(errorData.detail);
+      }
+    } catch (error) {
+      console.error("Error submitting report:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
@@ -96,7 +114,7 @@ const ReportIssue = () => {
         <label>Issue</label>
         <textarea
           placeholder="Name the issue..."
-          value={description}
+          value={issue}
           onChange={(e) => setIssue(e.target.value)}
           required
         />
@@ -104,7 +122,7 @@ const ReportIssue = () => {
         <label>Description</label>
         <textarea
           placeholder="Describe the issue..."
-          value={issue}
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../assets/Registration.css';
 import { validateEmail, validatePassword } from '../utils/validationUtils';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
   const [name, setName] = useState('');
@@ -11,10 +12,11 @@ const Registration = () => {
   const [phone, setPhone] = useState('');
   const [location, setLocation] = useState('');
   const [customLocation, setCustomLocation] = useState('');
+  const navigate = useNavigate();
 
   const locations = ["Kukatpally", "Ameerpet", "Jubilee Hills", "Kompally", "Gachibowli", "Madhapur"]; // Predefined locations
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateEmail(email)) {
@@ -32,7 +34,6 @@ const Registration = () => {
       return;
     }
 
-
     const registrationData = {
       name,
       email,
@@ -42,8 +43,28 @@ const Registration = () => {
       location: location === "Other" ? customLocation : location,
     };
 
-    console.log("Registration Data: ", registrationData);
-    // Here, you would typically send registrationData to your backend API
+    try {
+      const response = await fetch("http://localhost:8000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registrationData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert(result.message);
+        // Redirect to login page or clear form after successful registration
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        alert(errorData.detail); // Shows error message if email already exists
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -115,7 +136,6 @@ const Registration = () => {
         <button type="submit" className="register-button">Register</button>
         <p>Already have an account? <a href="/login">Login here</a>.</p>
       </form>
-      
     </div>
   );
 };

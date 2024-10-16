@@ -21,7 +21,7 @@ const Home = () => {
           <h2>View Recent Issues</h2>
           <p>See what issues are being reported and track their resolution status.</p>
         </div>
-        <div className="link-card" onClick={() => navigate('/dashboard')}>
+        <div className="link-card" onClick={() => navigate('/user-dashboard')}>
           <img src={dashboardIcon} alt="Dashboard" className="link-icon" />
           <h2>Dashboard</h2>
           <p>Access real-time insights and manage reported issues efficiently.</p>

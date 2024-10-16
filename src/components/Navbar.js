@@ -7,14 +7,12 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo" onClick={() => navigate('/')}>
+      <div className="navbar-logo" onClick={() => navigate('/home')}>
         Urban Improvement Hub
       </div>
       <div className="navbar-links">
-        <Link to="/register" className="nav-link">Register</Link>
-        <Link to="/login" className="nav-link">Login</Link>
         <Link to="/issues" className="nav-link">View Issues</Link>
-        <Link to="/dashboard" className="nav-link">Dashboard</Link>
+        <Link to="/user-dashboard" className="nav-link">Dashboard</Link>
       </div>
     </nav>
   );
