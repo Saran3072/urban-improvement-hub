@@ -48,8 +48,8 @@ const Registration = () => {
 
   return (
     <div className="registration-container">
-      <h2>Register</h2>
       <form onSubmit={handleSubmit} className="registration-form">
+        <h2>Register</h2>
         <input
           type="text"
           placeholder="Full Name"
@@ -113,8 +113,9 @@ const Registration = () => {
         )}
 
         <button type="submit" className="register-button">Register</button>
+        <p>Already have an account? <a href="/login">Login here</a>.</p>
       </form>
-      <p>Already have an account? <a href="/login">Login here</a>.</p>
+      
     </div>
   );
 };

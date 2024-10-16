@@ -13,8 +13,8 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
       <form onSubmit={handleLogin} className="login-form">
+      <h2>Login</h2>
         <input
           type="email"
           placeholder="Email Address"
@@ -32,8 +32,9 @@ const Login = () => {
         />
 
         <button type="submit" className="login-button">Login</button>
+        <p>Don’t have an account? <a href="/register">Register here</a>.</p>
       </form>
-      <p>Don’t have an account? <a href="/register">Register here</a>.</p>
+      
     </div>
   );
 };

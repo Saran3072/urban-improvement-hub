@@ -23,7 +23,7 @@ const Home = () => {
         </div>
         <div className="link-card" onClick={() => navigate('/dashboard')}>
           <img src={dashboardIcon} alt="Dashboard" className="link-icon" />
-          <h2>City Officials Dashboard</h2>
+          <h2>Dashboard</h2>
           <p>Access real-time insights and manage reported issues efficiently.</p>
         </div>
       </div>

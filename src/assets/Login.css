@@ -1,82 +1,93 @@
-/* General container styling for centering */
+/* General container styling for left alignment */
 .login-container {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('../assets/register.webp') no-repeat center center/cover;
+  padding: 20px;
+  background-color: #f8f9fa;
+  position: relative; /* For positioning the background image */
+  overflow: hidden;
+}
+
+/* Styling the login box */
+.login-form {
+  width: 100%;
+  max-width: 400px; /* Limit width on larger screens */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between form elements */
+  background-color: rgba(255, 255, 255, 0.7); /* Slight transparency */
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1; /* Align form to the left with automatic spacing on the right */
+}
+
+/* Uniform styling for input fields and buttons */
+.login-form input,
+.login-button {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Button styling */
+.login-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #292a2c;
+}
+
+/* Header styling */
+.login-container h2 {
+  color: #333;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+/* Footer text and link */
+.login-container p {
+  text-align: center;
+}
+
+.login-container a {
+  color: #333;
+  text-decoration: none;
+}
+
+.login-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-container {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Center vertically */
-    padding: 20px;
-    background-color: #f8f9fa;
+    background: url('../assets/register.webp') no-repeat center center/cover;
   }
-  
-  /* Styling the login box */
+
   .login-form {
-    width: 100%;
-    max-width: 400px; /* Limit width on larger screens */
-    padding: 20px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Space between form elements */
+    padding: 15px;
+    margin-right: 0; /* Center the form on smaller screens */
   }
-  
-  /* Input fields */
-  .login-form input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  /* Button styling */
+
+  .login-form input,
   .login-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 14px;
+    padding: 10px;
   }
-  
-  .login-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Header styling */
-  .login-container h2 {
-    color: #007bff;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  
-  /* Footer text and link */
-  .login-container p {
-    text-align: center;
-  }
-  
-  .login-container a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .login-container a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 480px) {
-    .login-form {
-      padding: 15px; /* Slightly reduce padding on small screens */
-    }
-  
-    .login-form input,
-    .login-button {
-      font-size: 14px; /* Slightly smaller font for mobile */
-      padding: 10px;
-    }
-  }
-  
+}
