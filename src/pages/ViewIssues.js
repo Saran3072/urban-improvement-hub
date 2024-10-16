@@ -18,7 +18,7 @@ const ViewIssues = () => {
   useEffect(() => {
     const fetchIssues = async () => {
       try {
-        const response = await fetch("http://localhost:8000/reports");
+        const response = await fetch("https://urban-backend-rs5i.onrender.com/reports");
         if (response.ok) {
           const data = await response.json();
           setIssuesData(data); // Set the fetched data to issuesData state

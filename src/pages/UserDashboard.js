@@ -18,7 +18,7 @@ const UserDashboard = ({ userEmail }) => {
         console.log("User email:", userEmail);
           const fetchUserDashboardData = async () => {
             try {
-              const response = await fetch(`http://localhost:8000/user-dashboard?email=${userEmail}`);
+              const response = await fetch(`https://urban-backend-rs5i.onrender.com/user-dashboard?email=${userEmail}`);
               if (response.ok) {
                 const data = await response.json();
                 setUserStats(data.userStats);

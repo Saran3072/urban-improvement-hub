@@ -36,7 +36,7 @@ const ReportIssue = ({ userEmail }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/report", {
+      const response = await fetch("https://urban-backend-rs5i.onrender.com/report", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
