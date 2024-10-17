@@ -72,7 +72,6 @@ const UserDashboard = ({ userEmail }) => {
                         <tr>
                             <th>Title</th>
                             <th>Category</th>
-                            <th>Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -81,7 +80,6 @@ const UserDashboard = ({ userEmail }) => {
                             <tr key={report.id}>
                                 <td>{report.title}</td>
                                 <td>{report.category}</td>
-                                <td>{report.date}</td>
                                 <td>{report.status}</td>
                             </tr>
                         ))}

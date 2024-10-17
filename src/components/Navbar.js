@@ -2,8 +2,16 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ userRole }) => {
   const navigate = useNavigate();
+
+  const handleDashboardNavigation = () => {
+    if (userRole === 'Citizen') {
+      navigate('/user-dashboard');
+    } else if (userRole === 'City Official') {
+      navigate('/authority-dashboard');
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -12,7 +20,10 @@ const Navbar = () => {
       </div>
       <div className="navbar-links">
         <Link to="/issues" className="nav-link">View Issues</Link>
-        <Link to="/user-dashboard" className="nav-link">Dashboard</Link>
+        <span className="nav-link" onClick={handleDashboardNavigation}>
+          Dashboard
+        </span>
+        <Link to="/" className="nav-link">Logout</Link>
       </div>
     </nav>
   );

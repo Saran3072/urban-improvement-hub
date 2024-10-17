@@ -130,9 +130,12 @@ const ReportIssue = ({ userEmail }) => {
         <label>Location</label>
         <select value={location} onChange={(e) => setLocation(e.target.value)} required>
           <option value="">Select Location</option>
-          <option value="New York">New York</option>
-          <option value="Los Angeles">Los Angeles</option>
-          <option value="Chicago">Chicago</option>
+          <option value="Kukatpally">Kukatpally</option>
+          <option value="Ameerpet">Ameerpet</option>
+          <option value="Jubilee Hills">Jubilee Hills</option>
+          <option value="Kompally">Kompally</option>
+          <option value="Gachibowli">Gachibowli</option>
+          <option value="Madhapur">Madhapur</option>
           <option value="Other">Other</option>
         </select>
         {location === 'Other' && (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/AuthorityDashboard.css';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
@@ -6,20 +6,43 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 const AuthorityDashboard = () => {
-  // Dummy data for global statistics
-  const globalStats = {
-    totalReports: 150,
-    resolvedReports: 90,
-    unresolvedReports: 60,
-    highPriorityReports: 25,
-  };
+  const [globalStats, setGlobalStats] = useState({
+    totalReports: 0,
+    resolvedReports: 0,
+    unresolvedReports: 0,
+    highPriorityReports: 0,
+  });
+  const [issuesByCategory, setIssuesByCategory] = useState([]);
+  const [issuesBySeriousness, setIssuesBySeriousness] = useState([]);
+  const [issueList, setIssueList] = useState([]);
 
-  // Dummy data for charts
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://urban-backend-rs5i.onrender.com/authority-dashboard");
+        if (response.ok) {
+          const data = await response.json();
+          setGlobalStats(data.globalStats);
+          setIssuesByCategory(data.issuesByCategory);
+          setIssuesBySeriousness(data.issuesBySeriousness);
+          setIssueList(data.issueList);
+        } else {
+          console.error("Failed to fetch authority dashboard data");
+        }
+      } catch (error) {
+        console.error("Error fetching authority dashboard data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Prepare data for charts
   const pieData = {
-    labels: ['Roads', 'Electricity', 'Water Supply', 'Waste Management'],
+    labels: issuesByCategory.map(item => item.category),
     datasets: [
       {
-        data: [45, 20, 35, 50], // Sample category data
+        data: issuesByCategory.map(item => item.count),
         backgroundColor: ['#007bff', '#ffc107', '#28a745', '#dc3545'],
         hoverBackgroundColor: ['#0056b3', '#e0a800', '#218838', '#c82333'],
       },
@@ -27,22 +50,15 @@ const AuthorityDashboard = () => {
   };
 
   const barData = {
-    labels: ['Low', 'Moderate', 'High', 'Critical'],
+    labels: issuesBySeriousness.map(item => item.seriousness),
     datasets: [
       {
         label: 'Issue Count by Seriousness Level',
-        data: [30, 40, 50, 30], // Sample data
+        data: issuesBySeriousness.map(item => item.count),
         backgroundColor: ['#28a745', '#ffc107', '#fd7e14', '#dc3545'],
       },
     ],
   };
-
-  const issueList = [
-    { id: 1, title: "Pothole on Main Street", category: "Roads", date: "2024-10-10", seriousness: "Moderate", status: "Unresolved" },
-    { id: 2, title: "Water Leakage in Park", category: "Water Supply", date: "2024-10-12", seriousness: "High", status: "Resolved" },
-    { id: 3, title: "Power Outage", category: "Electricity", date: "2024-10-13", seriousness: "Critical", status: "Unresolved" },
-    { id: 4, title: "Garbage Overflow", category: "Waste Management", date: "2024-10-14", seriousness: "Low", status: "Resolved" },
-  ];
 
   return (
     <div className="admin-dashboard-container">
@@ -89,7 +105,6 @@ const AuthorityDashboard = () => {
             <tr>
               <th>Title</th>
               <th>Category</th>
-              <th>Date</th>
               <th>Seriousness</th>
               <th>Status</th>
               <th>Actions</th>
@@ -100,7 +115,6 @@ const AuthorityDashboard = () => {
               <tr key={issue.id}>
                 <td>{issue.title}</td>
                 <td>{issue.category}</td>
-                <td>{issue.date}</td>
                 <td>{issue.seriousness}</td>
                 <td>{issue.status}</td>
                 <td>
