@@ -37,6 +37,29 @@ const AuthorityDashboard = () => {
     fetchData();
   }, []);
 
+  const handleResolveIssue = async (issueId) => {
+    try {
+      const response = await fetch(`https://urban-backend-rs5i.onrender.com/resolve-issue/${issueId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const updatedIssueList = issueList.map((issue) =>
+          issue.id === issueId ? { ...issue, status: 'Resolved' } : issue
+        );
+        setIssueList(updatedIssueList);
+        alert("Issue resolved successfully");
+      } else {
+        console.error("Failed to resolve issue");
+      }
+    } catch (error) {
+      console.error("Error resolving issue:", error);
+    }
+  };
+
   // Prepare data for charts
   const pieData = {
     labels: issuesByCategory.map(item => item.category),
@@ -118,7 +141,11 @@ const AuthorityDashboard = () => {
                 <td>{issue.seriousness}</td>
                 <td>{issue.status}</td>
                 <td>
-                  <button className="resolve-button">Resolve</button>
+                  {issue.status !== 'Resolved' && (
+                    <button className="resolve-button" onClick={() => handleResolveIssue(issue.id)}>
+                      Resolve
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
